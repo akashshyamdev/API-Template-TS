@@ -3,7 +3,6 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize'; // @ts-ignore
-import xss from 'xss-clean';
 import hpp from 'hpp';
 import globalErrorHandler from './controllers/errorController';
 import productRoutes from './routes/productRoutes';
@@ -34,10 +33,6 @@ app.use(hpp());
 
 app.use('/api/v1/products', productRoutes);
 
-app.all('*', (req, res, next) => {
-	next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
-});
-
-app.use(globalErrorHandler);
+// Routers
 
 export default app;
